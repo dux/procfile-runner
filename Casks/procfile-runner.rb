@@ -1,6 +1,6 @@
 cask "procfile-runner" do
-  version "1.0.0"
-  sha256 "b3bc231c64e5ce92ea52a2795171e5161b4cfee2d6b3d727cd57175d2e155ace"
+  version "1.1.0"
+  sha256 "029957be8301125f765d624602a1199c3c1112d4df217c2dfe955df44783319a"
 
   url "https://github.com/dux/procfile-runner/releases/download/v#{version}/Procfile-Runner-#{version}-mac.zip"
   name "Procfile Runner"
