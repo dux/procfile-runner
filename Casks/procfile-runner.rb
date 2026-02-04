@@ -11,6 +11,12 @@ cask "procfile-runner" do
 
   app "Procfile Runner.app"
 
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-d", "com.apple.quarantine", "#{appdir}/Procfile Runner.app"],
+                   sudo: false
+  end
+
   zap trash: [
     "~/.config/procfile-runner",
   ]
