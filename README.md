@@ -2,7 +2,7 @@
 
 A native desktop application for managing multiple processes defined in a Procfile. Built with [Wails](https://wails.io/) (Go + JavaScript), providing a fast and lightweight GUI for running development services.
 
-![Screenshot](public/screen1.png)
+![Screenshot](public/screen1.jpg)
 
 ## Features
 
@@ -203,7 +203,7 @@ make clean         # Remove build artifacts
 
 ## Screenshots
 
-![Screenshot 2](public/screen2.png)
+![Screenshot 2](public/screen2.jpg)
 
 ## Author
 
