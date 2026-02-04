@@ -14,9 +14,13 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
+//go:embed test/Procfile
+var demoProcfile string
+
 func main() {
 	// Create an instance of the app structure
 	app := NewApp()
+	app.demoProcfile = demoProcfile
 
 	// Check for Procfile path in command line arguments
 	if len(os.Args) > 1 {

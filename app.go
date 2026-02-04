@@ -24,6 +24,7 @@ type App struct {
 	sessionID         string            // unique ID for this session to track orphaned processes
 	envVars           map[string]string // environment variables from .env file
 	initialProcfile   string            // Procfile path passed via CLI argument
+	demoProcfile      string            // embedded demo Procfile content
 	mu                sync.Mutex
 }
 
@@ -382,4 +383,61 @@ func (a *App) AskOpenCode(processName string, logs string, question string) erro
 	// Fall back to Terminal.app
 	cmd := exec.Command("osascript", "-e", terminalScript)
 	return cmd.Run()
+}
+
+// GetProcfileContent returns the raw content of the currently loaded Procfile
+func (a *App) GetProcfileContent() (string, error) {
+	a.mu.Lock()
+	path := a.procfilePath
+	a.mu.Unlock()
+
+	if path == "" {
+		return "", fmt.Errorf("no Procfile loaded")
+	}
+
+	content, err := os.ReadFile(path)
+	if err != nil {
+		return "", err
+	}
+
+	return string(content), nil
+}
+
+// SaveProcfileContent saves content to the currently loaded Procfile and reloads it
+func (a *App) SaveProcfileContent(content string) error {
+	a.mu.Lock()
+	path := a.procfilePath
+	a.mu.Unlock()
+
+	if path == "" {
+		return fmt.Errorf("no Procfile loaded")
+	}
+
+	if err := os.WriteFile(path, []byte(content), 0644); err != nil {
+		return err
+	}
+
+	// Reload the Procfile to reflect changes
+	return a.LoadProcfile(path)
+}
+
+// GetDemoProcfilePath writes the demo Procfile to a temp directory and returns the path
+func (a *App) GetDemoProcfilePath() (string, error) {
+	if a.demoProcfile == "" {
+		return "", fmt.Errorf("no demo Procfile available")
+	}
+
+	// Create demo directory in temp
+	demoDir := filepath.Join(os.TempDir(), "procfile-runner-demo")
+	if err := os.MkdirAll(demoDir, 0755); err != nil {
+		return "", err
+	}
+
+	// Write demo Procfile
+	demoPath := filepath.Join(demoDir, "Procfile")
+	if err := os.WriteFile(demoPath, []byte(a.demoProcfile), 0644); err != nil {
+		return "", err
+	}
+
+	return demoPath, nil
 }

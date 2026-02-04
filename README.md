@@ -20,6 +20,8 @@ A native desktop application for managing multiple processes defined in a Procfi
 - Standard `name: command` format
 - Comment lines with `#`
 - **Disabled Processes** - Commented-out processes shown as "disabled" with click-to-enable
+- **View/Edit Procfile** - Click "View" to see and edit the Procfile directly in the app
+- **Demo Procfile** - Bundled demo Procfile loads automatically on first run
 - Auto-detection and loading of `.env` files from the same directory
 - **Environment Variable Injection** - .env variables passed to all spawned processes
 - **Quote Handling** - Properly handles single and double quoted values in .env

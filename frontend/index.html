@@ -13,6 +13,7 @@
         <div class="flex items-center gap-3">
           <h1 class="text-xl font-bold text-white">Procfile Runner <span id="author-link" class="text-gray-500 font-normal hover:text-gray-300 transition cursor-pointer">by @dux</span></h1>
           <span id="procfile-path" class="text-sm text-gray-400"></span>
+          <button id="btn-view-procfile" class="text-sm text-blue-400 hover:text-blue-300 transition hidden">[View]</button>
         </div>
         <div class="flex items-center gap-2">
           <button id="btn-open" class="px-3 py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-sm transition">
@@ -147,6 +148,28 @@
             <input type="text" id="app-picker-search" class="w-full bg-gray-700 text-white text-sm rounded px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Filter apps..." autofocus />
           </div>
           <div id="app-picker-list" class="flex-1 overflow-y-auto px-2 pb-2 space-y-0.5 min-h-0">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Procfile View/Edit Modal -->
+    <div id="procfile-modal" class="fixed inset-0 z-40 hidden">
+      <div class="absolute inset-0 bg-black/60" id="procfile-modal-backdrop"></div>
+      <div class="absolute inset-0 flex items-center justify-center p-8">
+        <div class="bg-gray-800 border border-gray-600 rounded-lg shadow-2xl flex flex-col max-h-[80vh]" style="width: calc(100% - 200px)">
+          <div class="flex items-center justify-between p-4 border-b border-gray-700">
+            <h3 class="text-sm font-semibold text-white">Edit Procfile</h3>
+            <button id="procfile-modal-close" class="text-gray-400 hover:text-white p-1">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+            </button>
+          </div>
+          <div class="flex-1 p-4 min-h-0">
+            <textarea id="procfile-content" class="w-full h-full bg-gray-900 text-gray-100 font-mono text-sm rounded px-3 py-2 resize-none focus:outline-none focus:ring-1 focus:ring-blue-500" style="min-height: 300px" spellcheck="false"></textarea>
+          </div>
+          <div class="flex items-center justify-end gap-2 p-4 border-t border-gray-700">
+            <button id="procfile-modal-cancel" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm transition">Cancel</button>
+            <button id="procfile-modal-save" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded text-sm font-medium transition">Save</button>
           </div>
         </div>
       </div>

@@ -21,7 +21,10 @@ import {
   GetAppIcon,
   OpenFileInEditor,
   CheckOpenCode,
-  EnableProcess
+  EnableProcess,
+  GetProcfileContent,
+  SaveProcfileContent,
+  GetDemoProcfilePath
 } from '../wailsjs/go/main/App';
 
 // Process colors for visual distinction - vibrant and well-separated hues
@@ -247,6 +250,13 @@ const elements = {
   appPickerList: document.getElementById("app-picker-list"),
   appPickerClose: document.getElementById("app-picker-close"),
   appPickerBackdrop: document.getElementById("app-picker-backdrop"),
+  btnViewProcfile: document.getElementById("btn-view-procfile"),
+  procfileModal: document.getElementById("procfile-modal"),
+  procfileModalBackdrop: document.getElementById("procfile-modal-backdrop"),
+  procfileModalClose: document.getElementById("procfile-modal-close"),
+  procfileModalCancel: document.getElementById("procfile-modal-cancel"),
+  procfileModalSave: document.getElementById("procfile-modal-save"),
+  procfileContent: document.getElementById("procfile-content"),
 };
 
 // Initialize app
@@ -301,6 +311,13 @@ function setupEventListeners() {
   elements.appPickerClose.addEventListener("click", closeAppPicker);
   elements.appPickerBackdrop.addEventListener("click", closeAppPicker);
   elements.appPickerSearch.addEventListener("input", filterAppPicker);
+
+  // Procfile viewer/editor
+  elements.btnViewProcfile.addEventListener("click", openProcfileModal);
+  elements.procfileModalClose.addEventListener("click", closeProcfileModal);
+  elements.procfileModalBackdrop.addEventListener("click", closeProcfileModal);
+  elements.procfileModalCancel.addEventListener("click", closeProcfileModal);
+  elements.procfileModalSave.addEventListener("click", saveProcfileContent);
 
   // Setup keyboard shortcuts
   setupKeyboardShortcuts();
@@ -363,6 +380,15 @@ async function loadProcfileWithPath(path) {
 async function loadRecentProjects() {
   try {
     const projects = await GetRecentProjects();
+    if (!projects || projects.length === 0) {
+      // First run - load demo Procfile
+      const demoPath = await GetDemoProcfilePath();
+      if (demoPath) {
+        await LoadProcfile(demoPath);
+        setStatus("Loaded demo Procfile - click Start All to try it out!");
+      }
+      return;
+    }
     renderRecentProjects(projects);
   } catch (err) {
     console.error("Failed to load recent projects:", err);
@@ -414,6 +440,7 @@ function handleProcfileLoaded(path, processes, envLoaded, envCount) {
   elements.logSearch.value = "";
 
   elements.procfilePath.textContent = path;
+  elements.btnViewProcfile.classList.remove("hidden");
   elements.btnStartAll.disabled = false;
 
   // Initialize processes
@@ -1377,6 +1404,37 @@ function renderAppPickerList(filter) {
     });
     elements.appPickerList.appendChild(btn);
   });
+}
+
+// --- Procfile Modal ---
+
+async function openProcfileModal() {
+  if (!state.procfilePath) return;
+
+  try {
+    const content = await GetProcfileContent();
+    elements.procfileContent.value = content;
+    elements.procfileModal.classList.remove("hidden");
+    elements.procfileContent.focus();
+  } catch (err) {
+    setStatus(`Error loading Procfile: ${err}`, true);
+  }
+}
+
+function closeProcfileModal() {
+  elements.procfileModal.classList.add("hidden");
+}
+
+async function saveProcfileContent() {
+  const content = elements.procfileContent.value;
+
+  try {
+    await SaveProcfileContent(content);
+    closeProcfileModal();
+    setStatus("Procfile saved and reloaded");
+  } catch (err) {
+    setStatus(`Error saving Procfile: ${err}`, true);
+  }
 }
 
 // Initialize

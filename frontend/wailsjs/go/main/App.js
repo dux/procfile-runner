@@ -26,8 +26,16 @@ export function GetAppIcon(arg1) {
   return window['go']['main']['App']['GetAppIcon'](arg1);
 }
 
+export function GetDemoProcfilePath() {
+  return window['go']['main']['App']['GetDemoProcfilePath']();
+}
+
 export function GetInstalledApps() {
   return window['go']['main']['App']['GetInstalledApps']();
+}
+
+export function GetProcfileContent() {
+  return window['go']['main']['App']['GetProcfileContent']();
 }
 
 export function GetRecentProjects() {
@@ -60,6 +68,10 @@ export function RestartProcess(arg1) {
 
 export function SaveLog(arg1, arg2) {
   return window['go']['main']['App']['SaveLog'](arg1, arg2);
+}
+
+export function SaveProcfileContent(arg1) {
+  return window['go']['main']['App']['SaveProcfileContent'](arg1);
 }
 
 export function SaveSetting(arg1, arg2) {

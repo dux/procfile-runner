@@ -14,7 +14,11 @@ export function GetActivePorts():Promise<Array<main.PortInfo>>;
 
 export function GetAppIcon(arg1:string):Promise<string>;
 
+export function GetDemoProcfilePath():Promise<string>;
+
 export function GetInstalledApps():Promise<Array<string>>;
+
+export function GetProcfileContent():Promise<string>;
 
 export function GetRecentProjects():Promise<Array<string>>;
 
@@ -31,6 +35,8 @@ export function OpenFileInEditor(arg1:string,arg2:number):Promise<void>;
 export function RestartProcess(arg1:string):Promise<void>;
 
 export function SaveLog(arg1:string,arg2:string):Promise<string>;
+
+export function SaveProcfileContent(arg1:string):Promise<void>;
 
 export function SaveSetting(arg1:string,arg2:string):Promise<void>;
 
