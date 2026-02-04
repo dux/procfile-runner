@@ -91,7 +91,13 @@ brew install --cask procfile-runner
 
 ### Manual Download
 
-Download the latest release from [GitHub Releases](https://github.com/dux/procfile-runner/releases).
+1. Download the latest `.zip` from [GitHub Releases](https://github.com/dux/procfile-runner/releases)
+2. Extract and move `Procfile Runner.app` to `/Applications`
+3. Remove macOS quarantine (required for unsigned apps):
+
+```bash
+xattr -d com.apple.quarantine "/Applications/Procfile Runner.app"
+```
 
 ### Build from Source
 
