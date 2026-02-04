@@ -87,6 +87,9 @@ A native desktop application for managing multiple processes defined in a Procfi
 ```bash
 brew tap dux/procfile-runner https://github.com/dux/procfile-runner
 brew install --cask procfile-runner
+
+# Allow app to run (removes quarantine)
+xattr -d com.apple.quarantine "/Applications/Procfile Runner.app"
 ```
 
 ### Manual Download
