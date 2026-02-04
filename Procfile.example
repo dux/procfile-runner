@@ -1,0 +1,4 @@
+# Example Procfile - replace with your own
+web: echo "Starting web server..." && sleep 2 && echo "Web server running on port 3000"
+worker: echo "Starting worker..." && sleep 1 && echo "Worker ready"
+redis: echo "Redis mock starting..." && sleep 3 && echo "Redis mock running"

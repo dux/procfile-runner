@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Tab styles */
+.tab-btn {
+  @apply whitespace-nowrap transition-colors;
+}
+
+.tab-btn:not(.active) {
+  @apply text-gray-400 border-b-2 border-transparent hover:text-gray-200 hover:bg-gray-700/50;
+}
+
+.tab-btn.active {
+  @apply text-white bg-green-900/50 border-b-2 border-green-500;
+}
+
+/* Process item styles */
+.process-item {
+  @apply flex items-center justify-between px-3 py-2 rounded cursor-default transition-colors;
+}
+
+.process-item:hover {
+  @apply bg-gray-700/50;
+}
+
+.process-item.running {
+  @apply bg-green-900/30;
+}
+
+.process-item.running:hover {
+  @apply bg-green-900/50;
+}
+
+/* Status indicator */
+.status-dot {
+  @apply w-2 h-2 rounded-full;
+}
+
+.status-dot.stopped {
+  @apply bg-gray-500;
+}
+
+.status-dot.running {
+  @apply bg-green-500 animate-pulse;
+}
+
+.status-dot.error {
+  @apply bg-red-500;
+}
+
+.status-dot.restarting {
+  @apply bg-yellow-500 animate-pulse;
+}
+
+/* Log line styles */
+.log-line {
+  @apply flex gap-2 py-0.5 hover:bg-gray-800/50;
+}
+
+.log-prefix {
+  @apply font-semibold min-w-[100px] text-right;
+}
+
+.log-content {
+  @apply flex-1 whitespace-pre-wrap break-all;
+}
+
+/* Action buttons in process list */
+.process-actions {
+  @apply flex gap-1 opacity-0 transition-opacity;
+}
+
+.process-item:hover .process-actions {
+  @apply opacity-100;
+}
+
+.action-btn {
+  @apply p-1 rounded hover:bg-gray-600 transition-colors;
+}
+
+.action-btn svg {
+  @apply w-4 h-4;
+}
+
+/* Recent project buttons */
+.recent-project-btn {
+  @apply px-3 py-1 text-xs bg-gray-700 hover:bg-gray-600 rounded transition-colors whitespace-nowrap;
+}
