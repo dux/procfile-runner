@@ -6,8 +6,40 @@ export function AddRecentProject(arg1) {
   return window['go']['main']['App']['AddRecentProject'](arg1);
 }
 
+export function AskOpenCode(arg1, arg2, arg3) {
+  return window['go']['main']['App']['AskOpenCode'](arg1, arg2, arg3);
+}
+
+export function CheckOpenCode() {
+  return window['go']['main']['App']['CheckOpenCode']();
+}
+
+export function EnableProcess(arg1) {
+  return window['go']['main']['App']['EnableProcess'](arg1);
+}
+
+export function GetActivePorts() {
+  return window['go']['main']['App']['GetActivePorts']();
+}
+
+export function GetAppIcon(arg1) {
+  return window['go']['main']['App']['GetAppIcon'](arg1);
+}
+
+export function GetInstalledApps() {
+  return window['go']['main']['App']['GetInstalledApps']();
+}
+
 export function GetRecentProjects() {
   return window['go']['main']['App']['GetRecentProjects']();
+}
+
+export function GetSettings() {
+  return window['go']['main']['App']['GetSettings']();
+}
+
+export function KillPort(arg1) {
+  return window['go']['main']['App']['KillPort'](arg1);
 }
 
 export function LoadProcfile(arg1) {
@@ -18,12 +50,20 @@ export function OpenFileDialog() {
   return window['go']['main']['App']['OpenFileDialog']();
 }
 
+export function OpenFileInEditor(arg1, arg2) {
+  return window['go']['main']['App']['OpenFileInEditor'](arg1, arg2);
+}
+
 export function RestartProcess(arg1) {
   return window['go']['main']['App']['RestartProcess'](arg1);
 }
 
 export function SaveLog(arg1, arg2) {
   return window['go']['main']['App']['SaveLog'](arg1, arg2);
+}
+
+export function SaveSetting(arg1, arg2) {
+  return window['go']['main']['App']['SaveSetting'](arg1, arg2);
 }
 
 export function SetGlobalAutoRestart(arg1) {

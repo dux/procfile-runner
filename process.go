@@ -39,10 +39,18 @@ type ProcessOutput struct {
 	IsStderr bool   `json:"is_stderr"`
 }
 
+// ProcessInfo represents basic process info for the frontend
+type ProcessInfo struct {
+	Name     string `json:"name"`
+	Disabled bool   `json:"disabled"`
+}
+
 // ProcfileLoaded represents the event when a procfile is loaded
 type ProcfileLoaded struct {
-	Path      string   `json:"path"`
-	Processes []string `json:"processes"`
+	Path      string        `json:"path"`
+	Processes []ProcessInfo `json:"processes"`
+	EnvLoaded bool          `json:"env_loaded"`
+	EnvCount  int           `json:"env_count"`
 }
 
 // spawnProcess starts a process and monitors it
@@ -76,8 +84,19 @@ func (a *App) spawnProcess(name string, def ProcessDefinition) error {
 		cmd.Dir = getParentDir(a.procfilePath)
 	}
 
-	// Tag the process with our session ID via environment variable
-	cmd.Env = append(os.Environ(), fmt.Sprintf("%s=%s", ProcessRunnerEnvKey, sessionID))
+	// Build environment: system env + .env file vars + session ID
+	a.mu.Lock()
+	envVars := a.envVars
+	a.mu.Unlock()
+
+	env := os.Environ()
+	// Add .env vars (these override system env if keys conflict)
+	for key, value := range envVars {
+		env = append(env, fmt.Sprintf("%s=%s", key, value))
+	}
+	// Tag the process with our session ID
+	env = append(env, fmt.Sprintf("%s=%s", ProcessRunnerEnvKey, sessionID))
+	cmd.Env = env
 
 	// Set up process group for clean killing on Unix
 	if runtime.GOOS != "windows" {

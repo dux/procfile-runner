@@ -2,6 +2,9 @@ package main
 
 import (
 	"embed"
+	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -15,9 +18,27 @@ func main() {
 	// Create an instance of the app structure
 	app := NewApp()
 
+	// Check for Procfile path in command line arguments
+	if len(os.Args) > 1 {
+		arg := os.Args[1]
+		// Skip flags (e.g., -NSDocumentRevisionsDebugMode from macOS)
+		if !strings.HasPrefix(arg, "-") {
+			// Convert to absolute path if relative
+			if !filepath.IsAbs(arg) {
+				if abs, err := filepath.Abs(arg); err == nil {
+					arg = abs
+				}
+			}
+			// Check if file exists
+			if _, err := os.Stat(arg); err == nil {
+				app.initialProcfile = arg
+			}
+		}
+	}
+
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:     "Procfile Runner",
+		Title:     "Procfile Runner by @dux",
 		Width:     1200,
 		Height:    800,
 		MinWidth:  800,

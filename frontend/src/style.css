@@ -72,9 +72,21 @@
   @apply bg-yellow-500 animate-pulse;
 }
 
+.status-dot.disabled {
+  @apply bg-gray-600;
+}
+
+.process-item.disabled {
+  @apply opacity-60;
+}
+
 /* Log line styles */
 .log-line {
   @apply flex gap-2 py-0.5 hover:bg-gray-800/50;
+}
+
+.log-line.stderr .log-content {
+  @apply text-red-400;
 }
 
 .log-prefix {
@@ -105,4 +117,65 @@
 /* Recent project buttons */
 .recent-project-btn {
   @apply px-3 py-1 text-xs bg-gray-700 hover:bg-gray-600 rounded transition-colors whitespace-nowrap;
+}
+
+/* Timestamp in log lines */
+.log-timestamp {
+  @apply text-xs font-normal;
+}
+
+/* Search highlight */
+mark {
+  @apply bg-yellow-500/50 text-white rounded-sm px-0.5;
+}
+
+/* Search match line highlight */
+.log-line.search-match {
+  @apply bg-yellow-900/30;
+}
+
+/* Log separator between search result groups */
+.log-separator {
+  @apply flex items-center justify-center py-2 text-gray-600 text-xs select-none;
+}
+
+.log-separator span {
+  @apply px-4;
+}
+
+/* Port items */
+.port-item {
+  @apply flex items-center justify-between px-2 py-1.5 rounded text-xs transition-colors;
+}
+
+.port-item:hover {
+  @apply bg-gray-700/50;
+}
+
+.port-number {
+  @apply font-mono font-semibold text-cyan-400 min-w-[45px];
+}
+
+.port-process {
+  @apply text-gray-300;
+}
+
+.port-kill-btn {
+  @apply p-1 rounded text-gray-400 hover:text-red-400 hover:bg-gray-600 transition-colors opacity-0;
+}
+
+.port-item:hover .port-kill-btn {
+  @apply opacity-100;
+}
+
+/* File path links in log output */
+.file-link {
+  @apply text-blue-400 cursor-pointer;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.15s;
+}
+
+.file-link:hover {
+  text-decoration-color: currentColor;
 }

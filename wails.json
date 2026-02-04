@@ -1,6 +1,6 @@
 {
   "$schema": "https://wails.io/schemas/config.v2.json",
-  "name": "procfile-runner",
+  "name": "Procfile Runner",
   "outputfilename": "procfile-runner",
   "frontend:install": "npm install",
   "frontend:build": "npm run build",
@@ -9,5 +9,12 @@
   "author": {
     "name": "Dino Reic",
     "email": "rejotl@gmail.com"
+  },
+  "info": {
+    "companyName": "Dino Reic",
+    "productName": "Procfile Runner",
+    "productVersion": "1.0.0",
+    "copyright": "Copyright 2024 Dino Reic",
+    "comments": "A native desktop application for managing multiple processes defined in a Procfile"
   }
 }
